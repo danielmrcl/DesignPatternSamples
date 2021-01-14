@@ -47,7 +47,7 @@ namespace DesignPatternSamples.WebAPI
             services.AddDependencyInjection()
                 .AddAutoMapper();
 
-            /*Cache distribuído FAKE*/
+            /*Cache distribuï¿½do FAKE*/
             services.AddDistributedMemoryCache();
             
             services.AddControllers();
@@ -104,10 +104,12 @@ namespace DesignPatternSamples.WebAPI
                 .Decorate<IDetranVerificadorDebitosService, DetranVerificadorDebitosDecoratorCache>()
                 .Decorate<IDetranVerificadorDebitosService, DetranVerificadorDebitosDecoratorLogger>()
                 .AddSingleton<IDetranVerificadorDebitosFactory, DetranVerificadorDebitosFactory>()
+                .AddSingleton<IDetranCarteiraPontosFactory, DetranCarteiraPontosFactory>()
                 .AddTransient<DetranPEVerificadorDebitosRepository>()
                 .AddTransient<DetranSPVerificadorDebitosRepository>()
                 .AddTransient<DetranRJVerificadorDebitosRepository>()
                 .AddTransient<DetranRSVerificadorDebitosRepository>()
+                .AddTransient<DetranMGVerificadorDebitosRepository>()
                 .AddScoped<ExceptionHandlingMiddleware>();
         }
 
@@ -129,7 +131,8 @@ namespace DesignPatternSamples.WebAPI
                 .Register("PE", typeof(DetranPEVerificadorDebitosRepository))
                 .Register("RJ", typeof(DetranRJVerificadorDebitosRepository))
                 .Register("SP", typeof(DetranSPVerificadorDebitosRepository))
-                .Register("RS", typeof(DetranRSVerificadorDebitosRepository));
+                .Register("RS", typeof(DetranRSVerificadorDebitosRepository))
+                .Register("MG", typeof(DetranMGVerificadorDebitosRepository));
 
             return app;
         }
